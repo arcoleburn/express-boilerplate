@@ -6,6 +6,8 @@ const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
+const folderRouter = require('./folderRouter');
+const notesRouter = require('./noteRouter');
 
 const app = express();
 
@@ -29,4 +31,7 @@ app.use(function errorHandler(error, req, res, next) {
   }
   res.status(500).json(response);
 });
+
+app.use(folderRouter);
+app.use(notesRouter);
 module.exports = app;

@@ -6,7 +6,7 @@ const FoldersService = {
   },
   insertFolder(knex, newFolder) {
     return knex
-      .insert(newfolder)
+      .insert(newFolder)
       .into('folder')
       .returning('*')
       .then((rows) => {

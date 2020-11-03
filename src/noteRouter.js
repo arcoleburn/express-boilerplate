@@ -3,11 +3,9 @@
 const express = require('express');
 const jsonParser = express.json();
 const logger = require('../logger');
-const { v4: uuid } = require('uuid');
 
 const notesRouter = express.Router();
 const bodyParser = express.json();
-const BookmarksService = require('../notes-service');
 const NotesService = require('./notes-service');
 
 notesRouter
@@ -22,7 +20,8 @@ notesRouter
       .catch(next);
   })
   .post(bodyParser, (req, res, next) => {
-    let { title, content, date_modified, folderId } = req.body;
+    let { title, content, date_modified, folder_Id:folderId } = req.body;
+   
     if (!title) {
       logger.error('title is required');
       return res.status(400).send('title is required field');
@@ -40,14 +39,12 @@ notesRouter
 
     //const id = uuid();
 
-    const newNote = { title, content, date_modified, folderId };
-    console.log('note from add', newNote);
+    const newNote = { title, content, date_modified, folder_id:folderId };
     NotesService.insertNote(
       req.app.get('db'),
       newNote
     ).then((note) => {
       logger.info(`note created`);
-      console.log('note res', note);
       res
         .status(201)
         .location(`/api/note/${note.id}`)
@@ -73,7 +70,6 @@ notesRouter
   })
 
   .delete((req, res, next) => {
-    console.log(req.params);
     NotesService.deleteNote(req.app.get('db'), req.params.id)
       .then(() => {
         res.status(204).end();

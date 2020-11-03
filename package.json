@@ -13,6 +13,9 @@
     "deploy": "git push heroku master"
   },
   "keywords": [],
+  "engines": {
+    "node": "12.19.0"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -20,8 +23,10 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "helmet": "^4.1.1",
+    "knex": "^0.21.12",
     "morgan": "^1.10.0",
-    "pg": "^8.4.2"
+    "pg": "^8.4.2",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "chai": "^4.2.0",
