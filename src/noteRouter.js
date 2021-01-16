@@ -10,7 +10,7 @@ const NotesService = require('./notes-service');
 
 notesRouter
 
-  .route('/api/note')
+  .route('/api/notes')
   .get((req, res, next) => {
     const db = req.app.get('db');
     NotesService.getAllNotes(db)
@@ -47,13 +47,13 @@ notesRouter
       logger.info(`note created`);
       res
         .status(201)
-        .location(`/api/note/${note.id}`)
+        .location(`/api/notes/${note.id}`)
         .json(note);
     });
   });
 
 notesRouter
-  .route('/api/note/:id')
+  .route('/api/notes/:id')
   .get((req, res, next) => {
     const db = req.app.get('db');
     const { id } = req.params;
@@ -72,7 +72,7 @@ notesRouter
   .delete((req, res, next) => {
     NotesService.deleteNote(req.app.get('db'), req.params.id)
       .then(() => {
-        res.status(204).end();
+        res.status(204).json({noteId: req.params.id});
       })
       .catch(next);
   })

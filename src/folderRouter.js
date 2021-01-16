@@ -10,7 +10,7 @@ const FolderService = require('./folder-service');
 
 folderRouter
 
-  .route('/api/folder')
+  .route('/api/folders')
   .get((req, res, next) => {
     const db = req.app.get('db');
     FolderService.getAllFolders(db)
@@ -20,7 +20,7 @@ folderRouter
       .catch(next);
   })
   .post(bodyParser, (req, res, next) => {
-    let { folder_name:title, id } = req.body;
+    let { title, id } = req.body;
     if (!title) {
       logger.error('title is required');
       return res.status(400).send('title is required field');
@@ -39,7 +39,7 @@ folderRouter
   });
 
 folderRouter
-  .route('/api/folder/:id')
+  .route('/api/folders/:id')
   .get((req, res, next) => {
     const db = req.app.get('db');
     const { id } = req.params;
