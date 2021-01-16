@@ -21,6 +21,9 @@ app.get('/', (req, res) => {
   res.send('Hello, world!');
 });
 
+app.use(folderRouter);
+app.use(notesRouter);
+
 app.use(function errorHandler(error, req, res, next) {
   let response;
   if (process.env.NODE_ENV === 'production') {
@@ -32,6 +35,5 @@ app.use(function errorHandler(error, req, res, next) {
   res.status(500).json(response);
 });
 
-app.use(folderRouter);
-app.use(notesRouter);
+
 module.exports = app;
